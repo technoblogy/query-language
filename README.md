@@ -1,2 +1,50 @@
-# query-language
-A query language and ATtiny database written in uLisp
+# A query language and ATtiny database written in uLisp
+This application is a simple query language to allow you to create a database of information about a particular domain, and then write queries to find answers to questions about that domain. I wrote it to make a database of information about Microchip ATtiny processors, to allow me to choose the best processor meeting the requirements of a particular project.
+
+I give the full ATtiny database here so you can try it out, or extend it with other information such as the price of each chip. Note that it doesn't include information about the new ATtiny 0-Series or 1-Series families.
+
+Alternatively you could use the query language to build an information system for your own application.
+
+It's a simplified version of a popular type of example given in several Lisp books, including: Paul Graham's "On Lisp" (pp. 246-254), available as a PDF on his site: [Download On Lisp](http://www.paulgraham.com/onlisptext.html), his "ANSI Common Lisp" (pp. 247-256), and Peter Norvig's "Paradigms of Artificial Intelligence Programming" (pp 348-387), available as a PDF on GitHub: [paip-lisp](https://github.com/norvig/paip-lisp).
+
+#### Running the query language
+
+I've tested the query language with the ATtiny database using the ARM version of uLisp running on an Adafruit ItsyBitsy M4. After installing the program and database you can save everything into the non-volatile DataFlash provided on this board using **(save-image)**, and then load everything back in with **(load-image)**. The Adafruit Metro M4 and Adafruit Feather M4 should give identical performance; see [Adafruit M4 boards](/show?2BLF).
+
+It also works nicely using the ARM version of uLisp running on the Arduino Due, see [Arduino Due](http://www.ulisp.com/show?1XA0), but in versions of uLisp up to and including 2.5c you need to double the symbol table size to 1024 bytes by editing the **#define** in the **ARDUINO_SAM_DUE** section to:
+
+    #define SYMBOLTABLESIZE 1024
+
+### Examples
+
+For example, the database allows you to ask questions such as:
+
+* Find all chips with at least 10 Kbytes of flash:
+
+````text
+> (answer '(and (flash ?c ?x) (test (> ?x 10240))) '("Flash > 10K:" ?c))
+Flash > 10K: attiny1634 
+Flash > 10K: attiny167 
+````
+
+* Find all chips that have I2C slave support in hardware:
+
+````text
+> (answer '(and (family ?c ?f) (i2c ?f slave)) '("I2C Slave support:" ?c))
+I2C Slave support: attiny828 
+I2C Slave support: attiny1634 
+I2C Slave support: attiny48 
+I2C Slave support: attiny88 
+I2C Slave support: attiny441 
+I2C Slave support: attiny841 
+````
+
+* Find all chips that have at least three timers (8-bit or 16-bit):
+
+````text
+> (answer '(and (family ?c ?f) (timer8 ?f ?x) (timer16 ?f ?y) (test (>= (+ ?x ?y) 3)))
+  '("3 Timers:" ?c))
+3 Timers: attiny441 
+3 Timers: attiny841 
+````
+For more information see http://forum.ulisp.com/t/a-query-language-and-attiny-database-written-in-ulisp/337.
