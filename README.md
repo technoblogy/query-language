@@ -1,7 +1,7 @@
 # A query language and ATtiny database written in uLisp
-This application is a simple query language to allow you to create a database of information about a particular domain, and then write queries to find answers to questions about that domain. I wrote it to make a database of information about Microchip ATtiny processors, to allow me to choose the best processor meeting the requirements of a particular project.
+This application is a simple query language to allow you to create a database of information about a particular domain, and then write queries to find answers to questions about that domain. It's written in uLisp, so you could run it on a microcontroller board such as the Adafruit ItsyBitsy M4. Because uLisp is compatible with Common Lisp you could alternatively run it on any Common Lisp implementation.
 
-I give the full ATtiny database here so you can try it out, or extend it with other information such as the price of each chip. Note that it doesn't include information about the new ATtiny 0-Series or 1-Series families.
+It includes a sample database of information about Microchip ATtiny processors, to allow you to choose the best processor meeting the requirements of a particular project. Note that it doesn't include information about the new ATtiny 0-Series or 1-Series families.
 
 Alternatively you could use the query language to build an information system for your own application.
 
