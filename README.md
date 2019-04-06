@@ -19,6 +19,22 @@ It also works nicely using the ARM version of uLisp running on the Arduino Due, 
 
 For example, the database allows you to ask questions such as:
 
+* Find the price (in pence) of each chip with 8 Kbytes of flash:
+
+````text
+>  (answer '(and (flash ?c ?x) (price ?c ?k ?p) (test (= ?x 8192))) '("Chip:" ?c "Package:" ?k "Price:" ?p))
+Chip: attiny828 Package: tqfp Price: 84 
+Chip: attiny88 Package: pdip Price: 143 
+Chip: attiny88 Package: tqfp Price: 76 
+Chip: attiny861 Package: pdip Price: 110 
+Chip: attiny861 Package: soic Price: 92 
+Chip: attiny841 Package: soic Price: 78 
+Chip: attiny84 Package: pdip Price: 87 
+Chip: attiny84 Package: soic Price: 60 
+Chip: attiny85 Package: pdip Price: 90 
+Chip: attiny85 Package: soic Price: 72
+````
+
 * Find all chips with at least 10 Kbytes of flash:
 
 ````text
