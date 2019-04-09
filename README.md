@@ -21,7 +21,7 @@ To install the query language on uLisp:
 
 * Try out the examples below.
 
-Submitting a query
+### Submitting a query
 
 To query the database you give a query of the form:
 
