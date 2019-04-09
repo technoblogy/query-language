@@ -11,13 +11,13 @@ It's a simplified version of a popular type of example given in several Lisp boo
 
 To install the query language on uLisp:
 
-* Copy the file query-language.lisp, paste it into the Arduino IDE Serial Monitor input field, and press Return.
+* Copy the file **query-language.lisp**, paste it into the Arduino IDE Serial Monitor input field, and press **Return**.
 
-* Copy the file attiny-database.lisp, paste it into the Arduino IDE Serial Monitor input field, and press Return.
+* Copy the file **attiny-database.lisp**, paste it into the Arduino IDE Serial Monitor input field, and press **Return**.
 
 * Give the command:
 
-(read-data)
+    (read-data)
 
 * Try out the examples below.
 
