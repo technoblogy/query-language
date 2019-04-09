@@ -97,4 +97,4 @@ I2C Slave support: attiny841
 3 Timers: attiny441 
 3 Timers: attiny841 
 ````
-For more information see http://forum.ulisp.com/t/a-query-language-and-attiny-database-written-in-ulisp/337.
+For more information see http://www.ulisp.com/show?2I60.
