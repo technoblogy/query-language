@@ -17,7 +17,7 @@ To install the query language on uLisp:
 
 * Give the command:
 
-    (read-data)
+      (read-data)
 
 * Try out the examples below.
 
