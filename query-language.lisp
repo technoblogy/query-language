@@ -1,6 +1,6 @@
 ;
-; uLisp Query Language
-; 26th March 2019
+; uLisp Query Language - 9th April 2019
+; See http://www.ulisp.com/show?2I60
 ;
 
 ; Database
@@ -14,7 +14,7 @@
 
 ; Match
 
-(defun match (x y binds)
+(defun match (x y &optional binds)
   (cond
    ((eq x y) (if binds binds '((t))))
    ((assoc x binds) (match (binding x binds) y binds))
@@ -37,22 +37,26 @@
 
 ; Inference
 
-(defun query (expr binds)
-  (let ((key (car expr)))
-    (cond  
-     ((eq key 'and) (query-and (reverse (cdr expr)) binds))
-     ((eq key 'or) (query-or (cdr expr) binds))
-     ((eq key 'not) (query-not (second expr) binds))
-     ((eq key 'test) (query-test (second expr) binds))
-     (t (lookup (car expr) (cdr expr) binds)))))
+(defun query (expr &optional binds)
+  (case (car expr)
+    (and (query-and (reverse (cdr expr)) binds))
+    (or (query-or (cdr expr) binds))
+    (not (query-not (second expr) binds))
+    (test (query-test (second expr) binds))
+    (t (lookup (car expr) (cdr expr) binds))))
+
+(defun lookup (pred args &optional binds)
+  (mapcan 
+   (lambda (x)
+     (let ((m (match args x binds)))
+       (when m (list m))))
+   (cdr (assoc pred *rules*))))
  
 (defun query-and (clauses binds)
   (if (null clauses)
       (list binds)
-    (apply 'append
-           (mapcar 
-            (lambda (b) (query (car clauses) b))
-            (query-and (cdr clauses) binds)))))
+    (mapcan (lambda (b) (query (car clauses) b))
+            (query-and (cdr clauses) binds))))
  
 (defun query-or (clauses binds)
   (apply 'append (mapcar (lambda (c) (query c binds)) clauses)))
@@ -70,14 +74,6 @@
 (defun query-test (tst binds)
   (when (eval (subs tst binds))
     (list binds)))
-
-(defun lookup (pred args binds)
-  (apply 'append
-         (mapcar 
-          (lambda (x)
-            (let ((m (match args x binds)))
-              (when m (list m))))
-          (cdr (assoc pred *rules*)))))
 
 (defun answer (expr output)
   (dolist (binds (query expr nil))

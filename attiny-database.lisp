@@ -1,5 +1,7 @@
+;
 ; The ATtiny database v3 - 9th April 2019
-; with 1-off prices (in pence) from https://uk.farnell.com/ and https://uk.rs-online.com/
+; See http://www.ulisp.com/show?2I60
+;
 
 (defvar *data*
   '((attinyX5 (pins 8) (io 5) (adc 4) (pwm 3) (usi 1) (timer8 2) (crystal) (pll))
