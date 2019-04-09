@@ -9,6 +9,18 @@ It's a simplified version of a popular type of example given in several Lisp boo
 
 #### Running the query language
 
+To install the query language on uLisp:
+
+* Copy the file query-language.lisp, paste it into the Arduino IDE Serial Monitor input field, and press Return.
+
+* Copy the file attiny-database.lisp, paste it into the Arduino IDE Serial Monitor input field, and press Return.
+
+* Give the command:
+
+(read-data)
+
+* Try out the examples below.
+
 I've tested the query language with the ATtiny database using the ARM version of uLisp running on an Adafruit ItsyBitsy M4. After installing the program and database you can save everything into the non-volatile DataFlash provided on this board using **(save-image)**, and then load everything back in with **(load-image)**. The Adafruit Metro M4 and Adafruit Feather M4 should give identical performance; see [Adafruit M4 boards](http://www.ulisp.com/show?2BLF).
 
 It also works nicely using the ARM version of uLisp running on the Arduino Due, see [Arduino Due](http://www.ulisp.com/show?1XA0), but in versions of uLisp up to and including 2.5c you need to double the symbol table size to 1024 bytes by editing the **#define** in the **ARDUINO_SAM_DUE** section to:
