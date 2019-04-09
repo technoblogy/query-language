@@ -21,11 +21,33 @@ To install the query language on uLisp:
 
 * Try out the examples below.
 
-I've tested the query language with the ATtiny database using the ARM version of uLisp running on an Adafruit ItsyBitsy M4. After installing the program and database you can save everything into the non-volatile DataFlash provided on this board using **(save-image)**, and then load everything back in with **(load-image)**. The Adafruit Metro M4 and Adafruit Feather M4 should give identical performance; see [Adafruit M4 boards](http://www.ulisp.com/show?2BLF).
+### Submitting a query
 
-It also works nicely using the ARM version of uLisp running on the Arduino Due, see [Arduino Due](http://www.ulisp.com/show?1XA0), but in versions of uLisp up to and including 2.5c you need to double the symbol table size to 1024 bytes by editing the **#define** in the **ARDUINO_SAM_DUE** section to:
+To query the database you give a query of the form:
 
-    #define SYMBOLTABLESIZE 1024
+    (answer '(query) '(output))
+    
+where **query** is a query you want to submit to the database, and **output** is a list to format the output.
+
+The **query** can contain variables beginning with a question mark, such as **?x**, which will be set to matching values in the database. So, for example, the query:
+
+    (flash ?c ?x)
+
+will match every rule in the database starting with **flash**, such as:
+
+    (flash attiny85 8192)
+
+After this successful match the variable **?c** will be set to **attiny85** and **?x** will be set to **8192**. These values can be referred to later in the **query**, or in the **output** list.
+
+You can combine queries with **and**, **or**, and **not**, and you can test values using **test**.
+
+The **output** list can consist of a series of strings and variables to print the variables in each successful match. For example, after the above match the output list:
+
+    ("Chip:" ?c "has flash:" ?x)
+    
+will print:
+
+    Chip: attiny85 has flash: 8192
 
 ### Examples
 
@@ -75,4 +97,4 @@ I2C Slave support: attiny841
 3 Timers: attiny441 
 3 Timers: attiny841 
 ````
-For more information see http://forum.ulisp.com/t/a-query-language-and-attiny-database-written-in-ulisp/337.
+For more information see http://www.ulisp.com/show?2I60.
